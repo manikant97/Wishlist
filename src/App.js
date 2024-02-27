@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import User from "./component/User"
+import Data from "./component/Data"
+import "./App.css";
+import React, { useState } from "react";
 
-function App() {
+
+export default function App() {
+  const [pass, setPass] = useState([]);
+  function add({ updata }) {
+    setPass([...pass, updata]);
+  }
+  function clearAll(clear) {
+    if (clear) {
+      setPass([]);
+    }
+  }
+  function DeleteItem(index) {
+    let temp = [...pass];
+    temp.splice(index, 1);
+    setPass(temp);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div id="parent">
+        <h1 id="h1">Wish List Manager</h1>
+        <User addtothelist={add} clearAll={clearAll} />
+        <Data sendData={pass} DeleteItem={DeleteItem} />
+      </div>
+    </>
   );
 }
-
-export default App;
